@@ -1,77 +1,62 @@
 import React from 'react';
 
-export default function TopupPage() {
+const games = [
+  { id: 'mlbb', name: 'Mobile Legends', image: 'ML', color: 'from-blue-600 to-blue-900' },
+  { id: 'pubg', name: 'PUBG Mobile', image: 'PUBG', color: 'from-orange-500 to-yellow-700' },
+  { id: 'ff', name: 'Free Fire', image: 'FF', color: 'from-red-600 to-red-900' },
+  { id: 'genshin', name: 'Genshin Impact', image: 'GI', color: 'from-teal-500 to-blue-700' },
+  { id: 'valorant', name: 'Valorant', image: 'VAL', color: 'from-pink-600 to-red-800' },
+  { id: 'hok', name: 'Honor of Kings', image: 'HOK', color: 'from-yellow-600 to-blue-800' },
+];
+
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white font-sans pb-10">
-      {/* Header Image/Banner */}
-      <div className="w-full h-48 bg-gradient-to-r from-blue-900 to-purple-900 flex items-center justify-center border-b border-gray-800">
-        <h1 className="text-4xl font-black tracking-tighter italic">MLBB TOPUP</h1>
+    <div className="min-h-screen bg-gray-950 text-white font-sans">
+      {/* Navigation Bar */}
+      <nav className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
+        <h1 className="text-xl font-black text-yellow-500 tracking-tighter">KP TOPUP</h1>
+        <div className="flex gap-4 text-sm text-gray-400">
+          <span>Search</span>
+          <span>Contact</span>
+        </div>
+      </nav>
+
+      {/* Hero Banner */}
+      <div className="p-6">
+        <div className="w-full h-40 bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 rounded-3xl flex items-center p-8 shadow-2xl overflow-hidden relative">
+          <div className="relative z-10">
+            <h2 className="text-2xl font-bold mb-1">ဂိမ်းအမျိုးစုံကို</h2>
+            <p className="text-gray-200">အမြန်ဆုံးနဲ့ အသက်သာဆုံး ဝယ်ယူလိုက်ပါ</p>
+          </div>
+          <div className="absolute right-[-20px] opacity-20 text-[100px] font-black italic select-none">TOPUP</div>
+        </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 -mt-10">
-        <div className="grid md:grid-cols-3 gap-6">
-          
-          {/* Left Side: Game Info */}
-          <div className="md:col-span-1">
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 sticky top-6">
-              <div className="w-24 h-24 bg-blue-600 rounded-2xl mb-4 mx-auto overflow-hidden shadow-lg shadow-blue-500/20">
-                {/* Game Icon Placeholder */}
-                <div className="w-full h-full flex items-center justify-center text-3xl font-bold">ML</div>
+      {/* Game List Grid */}
+      <div className="px-6 pb-20">
+        <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+          <span className="w-1 h-6 bg-yellow-500 rounded-full"></span>
+          Popular Games
+        </h3>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {games.map((game) => (
+            <div key={game.id} className="group cursor-pointer">
+              <div className={`aspect-square rounded-3xl bg-gradient-to-br ${game.color} shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-blue-500/20 flex items-center justify-center text-3xl font-black tracking-tighter relative overflow-hidden`}>
+                {game.image}
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
               </div>
-              <h2 className="text-xl font-bold text-center mb-1">Mobile Legends</h2>
-              <p className="text-gray-400 text-xs text-center mb-4">Moonton</p>
-              <div className="space-y-2 text-sm text-gray-300 border-t border-gray-800 pt-4">
-                <p>✅ Automatic Instant</p>
-                <p>✅ 24/7 Service</p>
-                <p>✅ Official Direct</p>
-              </div>
+              <p className="mt-3 text-sm font-semibold text-center text-gray-300 group-hover:text-white transition-colors">{game.name}</p>
             </div>
-          </div>
-
-          {/* Right Side: Form */}
-          <div className="md:col-span-2 space-y-6">
-            
-            {/* Step 1: Account Info */}
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="bg-blue-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">1</span>
-                <h3 className="text-lg font-bold">Account Information</h3>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="User ID" className="bg-gray-800 border border-gray-700 rounded-xl p-3 outline-none focus:border-blue-500 transition" />
-                <input type="text" placeholder="Zone ID" className="bg-gray-800 border border-gray-700 rounded-xl p-3 outline-none focus:border-blue-500 transition" />
-              </div>
-            </div>
-
-            {/* Step 2: Select Items */}
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="bg-blue-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">2</span>
-                <h3 className="text-lg font-bold">Select Diamonds</h3>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[86, 172, 257, 343, 429, 706].map((item) => (
-                  <button key={item} className="bg-gray-800 border border-gray-700 hover:border-blue-500 p-3 rounded-xl text-center transition group">
-                    <div className="text-sm font-bold group-hover:text-blue-400">{item} Diamonds</div>
-                    <div className="text-[10px] text-gray-400">From 2,500 Ks</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Step 3: Payment & Buy */}
-            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="bg-blue-600 w-8 h-8 rounded-full flex items-center justify-center font-bold">3</span>
-                <h3 className="text-lg font-bold">Buy Now</h3>
-              </div>
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl shadow-lg shadow-blue-600/20 transition-all transform active:scale-95">
-                CONFIRM ORDER
-              </button>
-            </div>
-
-          </div>
+          ))}
         </div>
+      </div>
+
+      {/* Footer Navigation (Mobile) */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-900/80 backdrop-blur-xl border-t border-gray-800 p-4 flex justify-around md:hidden">
+        <div className="flex flex-col items-center text-yellow-500"><span className="text-xs">Home</span></div>
+        <div className="flex flex-col items-center text-gray-500"><span className="text-xs">History</span></div>
+        <div className="flex flex-col items-center text-gray-500"><span className="text-xs">Profile</span></div>
       </div>
     </div>
   );
