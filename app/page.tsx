@@ -65,11 +65,20 @@ const games = [
   },
 ];
 
-/* ================= PAGE ================= */
+/* ================= MLBB SERVERS ================= */
+const mlbbServers = [
+  { id: "global", name: "MLBB Global", image: "/mlbb-global.png" },
+  { id: "indo", name: "MLBB Indonesia", image: "/mlbb-indo.png" },
+  { id: "ph", name: "MLBB Philippines", image: "/mlbb-ph.png" },
+  { id: "br", name: "MLBB Brazil", image: "/mlbb-br.png" },
+  { id: "login", name: "MLBB Login", image: "/mlbb-login.png" },
+];
+
 export default function Home() {
   const [current, setCurrent] = useState(0);
-  const [activeCategory, setActiveCategory] = useState("Game Mobile");
+  const [activeCategory, setActiveCategory] = useState("MLBB Mobile");
   const [search, setSearch] = useState("");
+  const [openMlbb, setOpenMlbb] = useState(false);
 
   /* Banner auto slide */
   useEffect(() => {
@@ -79,7 +88,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  /* Filtered games */
+  /* Filter games */
   const filteredGames = games.filter(
     (g) =>
       g.category === activeCategory &&
@@ -115,7 +124,6 @@ export default function Home() {
 
       {/* ================= FILTER BAR ================= */}
       <div className="px-4 flex flex-col md:flex-row gap-3 mb-6">
-        {/* Categories */}
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {categories.map((cat) => (
             <button
@@ -133,7 +141,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Search */}
         <div className="md:ml-auto relative w-full md:w-72">
           <input
             type="text"
@@ -152,6 +159,9 @@ export default function Home() {
           {filteredGames.map((game) => (
             <div
               key={game.id}
+              onClick={() => {
+                if (game.id === "mlbb") setOpenMlbb(true);
+              }}
               className="group cursor-pointer flex flex-col items-center"
             >
               <div className="w-full aspect-square bg-gray-900 rounded-2xl border border-gray-800 p-2 flex items-center justify-center group-hover:border-yellow-500 transition">
@@ -174,6 +184,49 @@ export default function Home() {
           </p>
         )}
       </div>
+
+      {/* ================= MLBB MODAL ================= */}
+      {openMlbb && (
+        <div className="fixed inset-0 z-[999] bg-black/80 flex items-center justify-center px-4">
+          <div className="bg-gray-950 border border-gray-800 rounded-2xl max-w-5xl w-full p-6 relative">
+            <button
+              onClick={() => setOpenMlbb(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white"
+            >
+              ✕
+            </button>
+
+            <h2 className="text-xl font-bold text-yellow-500 mb-1">
+              Mobile Legends
+            </h2>
+            <p className="text-gray-400 text-sm mb-6">
+              Select Server
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {mlbbServers.map((s) => (
+                <div
+                  key={s.id}
+                  className="cursor-pointer bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-yellow-500 transition"
+                  onClick={() => {
+                    setOpenMlbb(false);
+                    console.log("Selected server:", s.id);
+                  }}
+                >
+                  <img
+                    src={s.image}
+                    alt={s.name}
+                    className="w-full h-32 object-cover"
+                  />
+                  <p className="text-xs text-center py-2 text-gray-300">
+                    {s.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ================= BOTTOM NAV ================= */}
       <div className="fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-900 p-3 flex justify-around md:hidden">
