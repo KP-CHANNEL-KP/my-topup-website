@@ -1,185 +1,111 @@
 "use client";
+import React, { useState, useEffect } from 'react';
 
-import React, { useEffect, useState } from "react";
-
-/* ================= BANNERS ================= */
+// ၁။ Slider အတွက် ပုံနာမည်များ (Public folder ထဲက ပုံနာမည်နဲ့ တူရပါမယ်)
 const banners = [
-  "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000",
-  "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000",
-  "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1000",
+  "/promo1.png",
+  "/promo2.png",
+  "/promo3.png",
+  "/promo4.png",
+  "/promo5.png"
 ];
 
-/* ================= CATEGORIES ================= */
-const categories = [
-  "Game Mobile",
-  "MLBB Mobile",
-  "PC Game",
-  "Voucher",
-  "Social",
-  "Via login",
+// ၂။ ရောင်းမည့် ပစ္စည်းများစာရင်း (Games ရော Social App ရော ဒီမှာ စာရင်းသွင်းပါ)
+const allItems = [
+  { id: 'mlbb', name: 'Mobile Legends', icon: '/mlbb-logo.png', category: 'games' },
+  { id: 'pubg', name: 'PUBG Mobile', icon: '/pubg-logo.png', category: 'games' },
+  { id: 'ff', name: 'Free Fire', icon: '/ff-logo.png', category: 'games' },
+  { id: 'hok', name: 'Honor of Kings', icon: '/hok-logo.png', category: 'games' },
+  { id: 'netflix', name: 'Netflix Premium', icon: '/netflix-logo.png', category: 'social' },
+  { id: 'youtube', name: 'YouTube Premium', icon: '/youtube-logo.png', category: 'social' },
+  { id: 'spotify', name: 'Spotify Premium', icon: '/spotify-logo.png', category: 'social' },
+  { id: 'canva', name: 'Canva Pro', icon: '/canva-logo.png', category: 'social' },
 ];
 
-/* ================= GAMES ================= */
-const games = [
-  {
-    id: "mlbb",
-    name: "Mobile Legends",
-    icon: "/mlbb-logo.png",
-    category: "MLBB Mobile",
-  },
-  {
-    id: "pubg",
-    name: "PUBG Mobile",
-    icon: "/pubg-logo.png",
-    category: "Game Mobile",
-  },
-  {
-    id: "ff",
-    name: "Free Fire",
-    icon: "/ff-logo.png",
-    category: "Game Mobile",
-  },
-  {
-    id: "hok",
-    name: "Honor of Kings",
-    icon: "/hok-logo.png",
-    category: "Game Mobile",
-  },
-  {
-    id: "genshin",
-    name: "Genshin Impact",
-    icon: "/genshin-logo.png",
-    category: "PC Game",
-  },
-  {
-    id: "valorant",
-    name: "Valorant",
-    icon: "/valorant-logo.png",
-    category: "PC Game",
-  },
-  {
-    id: "fb",
-    name: "Facebook Likes",
-    icon: "/file.svg",
-    category: "Social",
-  },
-];
-
-/* ================= PAGE ================= */
 export default function Home() {
-  const [current, setCurrent] = useState(0);
-  const [activeCategory, setActiveCategory] = useState("Game Mobile");
-  const [search, setSearch] = useState("");
+  const [currentBanner, setCurrentBanner] = useState(0);
+  const [activeTab, setActiveTab] = useState('games'); 
 
-  /* Banner auto slide */
+  // Auto Slider ပတ်ရန် Logic
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
+      setCurrentBanner((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(timer);
   }, []);
 
-  /* Filtered games */
-  const filteredGames = games.filter(
-    (g) =>
-      g.category === activeCategory &&
-      g.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // ရွေးထားတဲ့ Tab အလိုက် ပစ္စည်းများကို Filter လုပ်ခြင်း
+  const filteredItems = allItems.filter(item => item.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* ================= NAV ================= */}
-      <nav className="p-4 border-b border-gray-900 sticky top-0 bg-black z-50 flex justify-between">
-        <h1 className="text-xl font-black text-yellow-500">KP TOPUP</h1>
-        <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
-          👤
-        </div>
+    <div className="min-h-screen bg-black text-white font-sans">
+      {/* Header Section */}
+      <nav className="p-4 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-900 flex justify-between items-center">
+        <h1 className="text-2xl font-black text-yellow-500 tracking-tighter italic">KP TOPUP</h1>
+        <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center border border-gray-700">👤</div>
       </nav>
 
-      {/* ================= BANNER ================= */}
-      <div className="p-4">
-        <div className="relative h-44 md:h-80 overflow-hidden rounded-2xl border border-gray-800">
-          {banners.map((img, i) => (
-            <div
-              key={i}
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                i === current ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <img src={img} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80" />
-            </div>
+      {/* Promotion Slider */}
+      <div className="p-4 md:p-6 max-w-5xl mx-auto">
+        <div className="relative w-full h-48 md:h-80 overflow-hidden rounded-[2rem] border border-gray-800 shadow-2xl bg-gray-900">
+          {banners.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentBanner ? 'opacity-100' : 'opacity-0'}`}
+              onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/1200x600?text=Banner+" + (index+1) }}
+            />
           ))}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {banners.map((_, i) => (
+              <div key={i} className={`h-1.5 rounded-full transition-all ${i === currentBanner ? 'w-6 bg-yellow-500' : 'w-2 bg-white/30'}`} />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* ================= FILTER BAR ================= */}
-      <div className="px-4 flex flex-col md:flex-row gap-3 mb-6">
-        {/* Categories */}
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs border whitespace-nowrap transition
-                ${
-                  activeCategory === cat
-                    ? "bg-emerald-400 text-black border-emerald-400"
-                    : "border-emerald-400 text-white hover:bg-emerald-400/10"
-                }`}
-            >
-              {cat}
-            </button>
-          ))}
+      {/* Tab Menu (GAMES / SOCIAL APP) */}
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="flex bg-gray-900/50 p-1.5 rounded-2xl border border-gray-800 mb-8 max-w-md mx-auto">
+          <button 
+            onClick={() => setActiveTab('games')}
+            className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === 'games' ? 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/20' : 'text-gray-400 hover:text-white'}`}
+          >
+            🕹️ GAMES
+          </button>
+          <button 
+            onClick={() => setActiveTab('social')}
+            className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all ${activeTab === 'social' ? 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/20' : 'text-gray-400 hover:text-white'}`}
+          >
+            📱 SOCIAL APP
+          </button>
         </div>
 
-        {/* Search */}
-        <div className="md:ml-auto relative w-full md:w-72">
-          <input
-            type="text"
-            placeholder="Search Game, Voucher, etc"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white text-black rounded-full px-4 py-2 text-sm focus:outline-none"
-          />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2">🔍</span>
-        </div>
-      </div>
-
-      {/* ================= GAME GRID ================= */}
-      <div className="px-4 pb-24">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          {filteredGames.map((game) => (
-            <div
-              key={game.id}
-              className="group cursor-pointer flex flex-col items-center"
-            >
-              <div className="w-full aspect-square bg-gray-900 rounded-2xl border border-gray-800 p-2 flex items-center justify-center group-hover:border-yellow-500 transition">
-                <img
-                  src={game.icon}
-                  alt={game.name}
-                  className="w-full h-full object-contain group-hover:scale-110 transition"
+        {/* Display Grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 pb-32">
+          {filteredItems.map((item) => (
+            <div key={item.id} className="group cursor-pointer flex flex-col items-center">
+              <div className="w-full aspect-square bg-gray-900 rounded-[1.5rem] border border-gray-800 p-2.5 group-hover:border-yellow-500/50 group-hover:bg-gray-800 transition-all duration-300 flex items-center justify-center overflow-hidden relative">
+                <img 
+                  src={item.icon} 
+                  alt={item.name} 
+                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/200?text=" + item.name }}
                 />
               </div>
-              <p className="mt-2 text-[11px] text-gray-400 group-hover:text-white text-center">
-                {game.name}
+              <p className="mt-3 text-[10px] md:text-sm font-semibold text-gray-400 group-hover:text-yellow-500 text-center uppercase tracking-tight">
+                {item.name}
               </p>
             </div>
           ))}
         </div>
-
-        {filteredGames.length === 0 && (
-          <p className="text-center text-gray-500 mt-10 text-sm">
-            No results found
-          </p>
-        )}
       </div>
 
-      {/* ================= BOTTOM NAV ================= */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-900 p-3 flex justify-around md:hidden">
-        <span className="text-yellow-500 text-xs">🏠 Home</span>
-        <span className="text-gray-500 text-xs">📜 History</span>
-        <span className="text-gray-500 text-xs">📞 Help</span>
+      {/* Mobile Bottom Navigation */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-gray-950/90 backdrop-blur-2xl border border-gray-800 rounded-[2rem] p-4 flex justify-around items-center shadow-2xl md:hidden z-50">
+        <div className="flex flex-col items-center text-yellow-500 font-bold"><span className="text-xl">🏠</span><span className="text-[10px]">Home</span></div>
+        <div className="flex flex-col items-center text-gray-500"><span className="text-xl">📄</span><span className="text-[10px]">Orders</span></div>
+        <div className="flex flex-col items-center text-gray-500"><span className="text-xl">💬</span><span className="text-[10px]">Chat</span></div>
       </div>
     </div>
   );
