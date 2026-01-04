@@ -13,7 +13,7 @@ export default function TopupPage() {
           <div>
             <label className="block mb-1 text-sm">Select Diamonds</label>
             <select className="w-full p-2 rounded bg-gray-700 border border-gray-600 outline-none">
-              <option>86 Diamonds - 2,500 Ks</option>
+              <option>86 Diamonds - 2,5000 Ks</option>
               <option>172 Diamonds - 4,800 Ks</option>
               <option>257 Diamonds - 7,200 Ks</option>
               <option>706 Diamonds - 18,500 Ks</option>
