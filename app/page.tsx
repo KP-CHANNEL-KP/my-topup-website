@@ -19,7 +19,7 @@ const allItems = [
   { id: 'ff', name: 'FREE FIRE', icon: '/ff-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'hok', name: 'HONOR OF KINGS', icon: '/hok-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'spotify', name: 'Spotify Premium', icon: '/spotify.png', category: 'Social', path: '#' },
-  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social', path: '#' },
+  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social', path: 'capcut/order' },
   { id: 'youtube', name: 'YouTube Premium', icon: '/youtube.png', category: 'Social', path: '#' },
   { id: 'roblox', name: 'ROBLOX', icon: '/roblox.png', category: 'Social', path: '#' },
   { id: 'wink', name: 'Wink', icon: '/wink.png', category: 'Social', path: '#' },
