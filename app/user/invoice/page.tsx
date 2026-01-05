@@ -43,10 +43,10 @@ export default function InvoicePage() {
               <p className="text-[10px] font-black uppercase tracking-widest text-emerald-100">Please make the payment to the account below</p>
               <div>
                 <p className="text-[9px] font-bold text-emerald-200 uppercase">Account Name</p>
-                <p className="text-lg font-black italic">Ei Paing Kyaw</p>
+                <p className="text-lg font-black italic">Aung Paing Soe</p>
               </div>
               <div className="bg-black/20 p-4 rounded-2xl flex justify-between items-center border border-white/10">
-                <span className="text-sm font-mono font-bold tracking-wider">09404454401</span>
+                <span className="text-sm font-mono font-bold tracking-wider">09966955081</span>
                 <button onClick={() => copyToClipboard('09404454401')} className="p-2 bg-emerald-400 text-black rounded-lg hover:scale-105 transition-transform">
                   <Copy className="w-4 h-4" />
                 </button>
