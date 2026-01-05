@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, MapPin } from 'lucide-react'; // Icon လေးတွေသုံးဖို့ link ထားတာပါ
+import { Search, MapPin, User } from 'lucide-react'; 
 
 const banners = ["/promo1.png", "/promo2.png", "/promo3.png"];
 const categories = ["Game Mobile", "Mlbb Mobile", "Pc Game", "Voucher", "Social", "Via login"];
@@ -36,13 +36,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Navigation Bar - ပြင်ဆင်ထားသောအပိုင်း */}
+      {/* Navigation Bar */}
       <nav className="p-4 border-b border-gray-900 bg-black/80 sticky top-0 z-50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-8">
             <h1 className="text-2xl font-black text-yellow-500 italic tracking-tighter uppercase">KP TOPUP</h1>
             
-            {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-6">
               <Link href="/" className="text-[10px] font-black uppercase text-yellow-500 tracking-widest">Home</Link>
               <Link href="/mlbb/check-region" className="text-[10px] font-black uppercase text-gray-400 hover:text-yellow-500 transition-colors tracking-widest flex items-center gap-1.5">
@@ -51,19 +50,35 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-             {/* Mobile Check Region Icon (Optional) */}
-             <Link href="/mlbb/check-region" className="md:hidden p-2 bg-yellow-500/10 rounded-full">
+          <div className="flex items-center gap-5">
+             {/* Mobile Check Region Link */}
+             <Link href="/mlbb/check-region" className="md:hidden p-2 bg-yellow-500/10 rounded-full border border-yellow-500/20">
                 <MapPin className="w-4 h-4 text-yellow-500" />
              </Link>
-             <button className="bg-white text-black px-6 py-2 rounded-full text-xs font-black uppercase hover:bg-yellow-500 transition-all active:scale-95">Login</button>
+
+             {/* User Profile Link - သင်တောင်းဆိုထားသော ပြင်ဆင်ချက် */}
+             <div className="flex items-center gap-3 pl-4 border-l border-gray-800">
+               <div className="hidden md:block text-right">
+                  <p className="text-[9px] font-black text-gray-500 uppercase tracking-tighter">Welcome back,</p>
+                  <p className="text-[10px] font-black text-white italic">KP USER</p>
+               </div>
+               <Link href="/user" className="group relative">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-500 to-yellow-200 p-[1.5px] shadow-lg shadow-yellow-500/10 group-active:scale-90 transition-transform">
+                    <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                       <User className="w-5 h-5 text-yellow-500 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+                  {/* Online Status Dot */}
+                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-black rounded-full"></div>
+               </Link>
+             </div>
           </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">
-        {/* Banner Slider */}
-        <div className="relative w-full h-44 md:h-80 overflow-hidden rounded-[2.5rem] border border-gray-800 mb-8 shadow-2xl group">
+        {/* Banner Slider Section */}
+        <div className="relative w-full h-44 md:h-80 overflow-hidden rounded-[2.5rem] border border-gray-800 mb-8 shadow-2xl">
           {banners.map((img, index) => (
             <img 
               key={index} 
@@ -102,13 +117,13 @@ export default function Home() {
             </div>
             <input 
               type="text" 
-              placeholder="Search Games..." 
+              placeholder="Search Games or Services..." 
               className="w-full bg-[#181818] text-white py-4 pl-12 pr-7 rounded-full text-xs font-bold outline-none border border-gray-800 focus:border-yellow-500 transition-all placeholder:text-gray-600" 
             />
           </div>
         </div>
 
-        {/* Items Grid */}
+        {/* Dynamic Items Grid Section */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6 md:gap-8">
           {filteredItems.map((item) => (
             <Link 
