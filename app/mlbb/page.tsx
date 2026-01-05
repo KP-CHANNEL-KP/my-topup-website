@@ -1,98 +1,77 @@
 "use client";
-"use client";
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
-// Server အလိုက် ဈေးနှုန်းများ (Diamond + Weekly Pass)
-const serverData = {
-  mm: {
-    name: "Myanmar Server",
-    packages: [
-      { id: 1, amt: '86 💎', price: '2,500 Ks' },
-      { id: 2, amt: '172 💎', price: '4,850 Ks' },
-      { id: 3, amt: '257 💎', price: '7,250 Ks' },
-      { id: 4, amt: 'WDP 💎 (Weekly)', price: '5,100 Ks' },
-    ]
-  },
-  indo: {
-    name: "Indonesia Server",
-    packages: [
-      { id: 10, amt: '86 💎', price: '2,400 Ks' },
-      { id: 11, amt: '172 💎', price: '4,700 Ks' },
-      { id: 12, amt: 'WDP 💎 (Weekly)', price: '4,900 Ks' },
-    ]
-  },
-  ph: {
-    name: "Philippines Server",
-    packages: [
-      { id: 20, amt: '86 💎', price: '2,600 Ks' },
-      { id: 21, amt: 'WDP 💎 (Weekly)', price: '5,300 Ks' },
-    ]
-  },
-  bz: {
-    name: "Brazil Server",
-    packages: [
-      { id: 30, amt: '86 💎', price: '2,350 Ks' },
-      { id: 31, amt: 'WDP 💎 (Weekly)', price: '4,800 Ks' },
-    ]
-  }
-};
+// ပုံထဲကအတိုင်း Server စာရင်းများ
+const servers = [
+  { id: 'indo', name: 'MLBB Indonesia', icon: '/indo-server.png', desc: 'Direct Topup', color: 'from-purple-900/40' },
+  { id: 'ph', name: 'MLBB Philippines', icon: '/ph-server.png', desc: 'Fast Delivery', color: 'from-blue-900/40' },
+  { id: 'global', name: 'MLBB Global', icon: '/global-server.png', desc: 'Instant Work', color: 'from-cyan-900/40' },
+  { id: 'brazil', name: 'MLBB Brazil', icon: '/brazil-server.png', desc: 'Regional Price', color: 'from-green-900/40' },
+  { id: 'login', name: 'MLBB Via Login', icon: '/login-server.png', desc: 'Cheapest Option', color: 'from-pink-900/40' },
+  { id: 'sg-my', name: 'MLBB Indo + Malay', icon: '/sg-my-server.png', desc: 'Special Region', color: 'from-indigo-900/40' },
+  { id: 'russia', name: 'MLBB Russia', icon: '/russia-server.png', desc: 'Instant', color: 'from-red-900/40' },
+  { id: 'adv', name: 'MLBB Adventure', icon: '/mlbb-adv.png', desc: 'Game Topup', color: 'from-orange-900/40' },
+];
 
-export default function MLBBTopup() {
-  const [selectedServer, setSelectedServer] = useState<string>('mm');
-  const [selectedPkg, setSelectedPkg] = useState<number | null>(null);
-
+export default function ServerSelectionPage() {
   return (
-    <div className="min-h-screen bg-black text-white p-4 font-sans pb-24">
-      <div className="max-w-md mx-auto space-y-5">
-        <Link href="/" className="text-xs text-gray-500 hover:text-blue-500 transition inline-block">❮ Home</Link>
-        
-        {/* Step 1: Player ID */}
-        <div className="bg-[#111] p-6 rounded-[2rem] border border-gray-800 shadow-xl">
-          <h2 className="text-[10px] font-black text-blue-500 mb-4 tracking-widest uppercase">1. Account Details</h2>
-          <div className="flex gap-3">
-            <input type="number" placeholder="User ID" className="flex-[2] bg-gray-900 border border-gray-800 p-4 rounded-2xl outline-none focus:border-blue-500 text-sm" />
-            <input type="number" placeholder="Zone" className="flex-1 bg-gray-900 border border-gray-800 p-4 rounded-2xl outline-none focus:border-blue-500 text-sm" />
-          </div>
+    <div className="min-h-screen bg-[#0a0a0a] text-white font-sans pb-20">
+      {/* Header အပိုင်း */}
+      <div className="p-6 flex items-center gap-4 max-w-5xl mx-auto">
+        <Link href="/" className="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center border border-gray-800 hover:bg-gray-800 transition-all">
+          <span className="text-gray-400">❮</span>
+        </Link>
+        <div>
+          <h1 className="text-xl font-black tracking-tighter uppercase italic">Select Server</h1>
+          <p className="text-[10px] text-yellow-500 font-bold tracking-widest uppercase opacity-70">Mobile Legends: Bang Bang</p>
         </div>
+      </div>
 
-        {/* Step 2: Select Server */}
-        <div className="bg-[#111] p-6 rounded-[2rem] border border-gray-800 shadow-xl">
-          <h2 className="text-[10px] font-black text-blue-500 mb-4 tracking-widest uppercase">2. Select Server</h2>
-          <div className="grid grid-cols-2 gap-2">
-            {Object.keys(serverData).map((key) => (
-              <button
-                key={key}
-                onClick={() => { setSelectedServer(key); setSelectedPkg(null); }}
-                className={`py-3 px-2 rounded-xl border text-[10px] font-bold transition-all ${selectedServer === key ? 'border-blue-500 bg-blue-500/10 text-white' : 'border-gray-800 bg-gray-900 text-gray-500'}`}
-              >
-                {(serverData as any)[key].name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Step 3: Select Package */}
-        <div className="bg-[#111] p-6 rounded-[2rem] border border-gray-800 shadow-xl">
-          <h2 className="text-[10px] font-black text-blue-500 mb-4 tracking-widest uppercase">3. Choose Diamonds / Pass</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {(serverData as any)[selectedServer].packages.map((pkg: any) => (
-              <div 
-                key={pkg.id} 
-                onClick={() => setSelectedPkg(pkg.id)} 
-                className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${selectedPkg === pkg.id ? 'border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.15)]' : 'border-gray-800 bg-gray-900 hover:border-gray-700'}`}
-              >
-                <div className="text-xs font-bold text-gray-200">{pkg.amt}</div>
-                <div className="text-[10px] text-gray-500 mt-1">{pkg.price}</div>
+      {/* Server Grid အပိုင်း */}
+      <div className="px-6 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {servers.map((server) => (
+          <Link 
+            key={server.id} 
+            href="/mlbb" 
+            className={`relative group overflow-hidden rounded-[2rem] border border-gray-800 bg-gradient-to-br ${server.color} to-black p-1 hover:border-yellow-500/50 transition-all duration-500 active:scale-95 shadow-2xl`}
+          >
+            <div className="relative aspect-[4/5] rounded-[1.8rem] overflow-hidden">
+              {/* Background Image (Icon) */}
+              <img 
+                src={server.icon} 
+                alt={server.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x500?text=" + server.name }}
+              />
+              
+              {/* Overlay Content */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-4">
+                <h3 className="text-sm font-black leading-tight group-hover:text-yellow-500 transition-colors uppercase tracking-tighter">
+                  {server.name}
+                </h3>
+                <p className="text-[9px] text-gray-400 font-medium mt-1">
+                  {server.desc}
+                </p>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Step 4: Buy Button */}
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-[2.2rem] shadow-2xl shadow-blue-600/30 transition-all active:scale-95 uppercase tracking-widest text-xs">
-          Confirm & Buy Now
-        </button>
+              {/* Hover Effect Light */}
+              <div className="absolute inset-0 bg-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* Search/Filter Bar အောက်ခြေ (Optional) */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-md">
+        <div className="bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-full px-6 py-3 flex items-center gap-3 shadow-2xl">
+          <span className="text-gray-500 text-sm">🔍</span>
+          <input 
+            type="text" 
+            placeholder="Search server..." 
+            className="bg-transparent border-none outline-none text-xs w-full text-white placeholder:text-gray-600"
+          />
+        </div>
       </div>
     </div>
   );
