@@ -1,4 +1,5 @@
 "use client";
+"use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
 
@@ -11,7 +12,8 @@ const packages = [
 ];
 
 export default function MLBBTopup() {
-  const [selected, setSelected] = useState(null);
+  // Error တက်တဲ့နေရာကို ဒီလို ပြင်လိုက်ပါတယ်
+  const [selected, setSelected] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-black text-white p-4 font-sans pb-20">
@@ -32,7 +34,11 @@ export default function MLBBTopup() {
           <h2 className="text-[10px] font-black text-blue-500 mb-5 tracking-[0.2em] uppercase">2. Select Package</h2>
           <div className="grid grid-cols-2 gap-3">
             {packages.map((pkg) => (
-              <div key={pkg.id} onClick={() => setSelected(pkg.id)} className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${selected === pkg.id ? 'border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.15)]' : 'border-gray-800 bg-gray-900 hover:border-gray-700'}`}>
+              <div 
+                key={pkg.id} 
+                onClick={() => setSelected(pkg.id)} 
+                className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 ${selected === pkg.id ? 'border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.15)]' : 'border-gray-800 bg-gray-900 hover:border-gray-700'}`}
+              >
                 <div className="text-xs font-bold text-gray-200">{pkg.amt}</div>
                 <div className="text-[10px] text-gray-500 mt-1 font-medium">{pkg.price}</div>
               </div>
