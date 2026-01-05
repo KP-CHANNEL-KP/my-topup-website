@@ -20,7 +20,7 @@ function PubgOrderContent() {
     <div className="max-w-2xl mx-auto space-y-6 pb-20">
       {/* 1. Header Banner */}
       <div className="relative h-44 rounded-[2rem] overflow-hidden border border-gray-800 shadow-2xl">
-        <img src="/pubg-banner.jpg" className="w-full h-full object-cover opacity-60" alt="PUBG Banner" />
+        <img src="/pubg-banner.png" className="w-full h-full object-cover opacity-60" alt="PUBG Banner" />
         <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-black via-black/40 to-transparent">
           <div className="flex items-center gap-4">
             <img src="/pubg-logo.png" className="w-16 h-16 rounded-2xl border-2 border-yellow-500 shadow-lg" alt="PUBG Logo" />
