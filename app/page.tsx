@@ -15,6 +15,8 @@ const allItems = [
   // Telegram Premium - /telegram/order ကိုသွားမည်
   { id: 'telegram', name: 'Telegram Premium', icon: '/telegram.png', category: 'Social', path: '/telegram/order' },
   
+  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social', path: '/capcut/order' },
+  
   { id: 'ff', name: 'FREE FIRE', icon: '/ff-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'hok', name: 'HONOR OF KINGS', icon: '/hok-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'spotify', name: 'Spotify Premium', icon: '/spotify.png', category: 'Social', path: '#' },
