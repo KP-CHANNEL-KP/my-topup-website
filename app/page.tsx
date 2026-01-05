@@ -1,25 +1,19 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Search, MapPin } from 'lucide-react'; // Icon လေးတွေသုံးဖို့ link ထားတာပါ
 
 const banners = ["/promo1.png", "/promo2.png", "/promo3.png"];
 const categories = ["Game Mobile", "Mlbb Mobile", "Pc Game", "Voucher", "Social", "Via login"];
 
 const allItems = [
-  // MLBB - /mlbb/server ကိုသွားမည်
   { id: 'mlbb', name: 'MOBILE LEGENDS', icon: '/mlbb-logo.png', category: 'Mlbb Mobile', path: '/mlbb/server' },
-  
-  // PUBG - /pubg/order ကိုသွားမည်
   { id: 'pubg', name: 'PUBG MOBILE', icon: '/pubg-logo.png', category: 'Game Mobile', path: '/pubg/order' },
-  
-  // Telegram Premium - /telegram/order ကိုသွားမည်
   { id: 'telegram', name: 'Telegram Premium', icon: '/telegram.png', category: 'Social', path: '/telegram/order' },
-  
-
+  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social', path: '/capcut/order' },
   { id: 'ff', name: 'FREE FIRE', icon: '/ff-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'hok', name: 'HONOR OF KINGS', icon: '/hok-logo.png', category: 'Game Mobile', path: '#' },
   { id: 'spotify', name: 'Spotify Premium', icon: '/spotify.png', category: 'Social', path: '#' },
-  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social', path: 'capcut/order' },
   { id: 'youtube', name: 'YouTube Premium', icon: '/youtube.png', category: 'Social', path: '#' },
   { id: 'roblox', name: 'ROBLOX', icon: '/roblox.png', category: 'Social', path: '#' },
   { id: 'wink', name: 'Wink', icon: '/wink.png', category: 'Social', path: '#' },
@@ -42,16 +36,33 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      {/* Navigation Bar */}
+      {/* Navigation Bar - ပြင်ဆင်ထားသောအပိုင်း */}
       <nav className="p-4 border-b border-gray-900 bg-black/80 sticky top-0 z-50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-black text-yellow-500 italic tracking-tighter uppercase">KP TOPUP</h1>
-          <button className="bg-white text-black px-6 py-2 rounded-full text-xs font-black uppercase hover:bg-yellow-500 transition-all active:scale-95 shadow-lg shadow-white/5">Login</button>
+          <div className="flex items-center gap-8">
+            <h1 className="text-2xl font-black text-yellow-500 italic tracking-tighter uppercase">KP TOPUP</h1>
+            
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-[10px] font-black uppercase text-yellow-500 tracking-widest">Home</Link>
+              <Link href="/mlbb/check-region" className="text-[10px] font-black uppercase text-gray-400 hover:text-yellow-500 transition-colors tracking-widest flex items-center gap-1.5">
+                <MapPin className="w-3 h-3" /> Check Region ML
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+             {/* Mobile Check Region Icon (Optional) */}
+             <Link href="/mlbb/check-region" className="md:hidden p-2 bg-yellow-500/10 rounded-full">
+                <MapPin className="w-4 h-4 text-yellow-500" />
+             </Link>
+             <button className="bg-white text-black px-6 py-2 rounded-full text-xs font-black uppercase hover:bg-yellow-500 transition-all active:scale-95">Login</button>
+          </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">
-        {/* Banner Slider Section */}
+        {/* Banner Slider */}
         <div className="relative w-full h-44 md:h-80 overflow-hidden rounded-[2.5rem] border border-gray-800 mb-8 shadow-2xl group">
           {banners.map((img, index) => (
             <img 
@@ -61,14 +72,11 @@ export default function Home() {
               alt={`Promo ${index + 1}`}
             />
           ))}
-          {/* Slider Progress Dots */}
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {banners.map((_, i) => (
               <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentBanner ? 'w-10 bg-yellow-500 shadow-[0_0_10px_#eab308]' : 'w-2 bg-white/20'}`}></div>
             ))}
           </div>
-          {/* Banner Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
         </div>
 
         {/* Categories Navigation & Search Bar */}
@@ -88,16 +96,19 @@ export default function Home() {
               </button>
             ))}
           </div>
-          <div className="relative w-full lg:w-96 group">
+          <div className="relative w-full lg:w-96">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2">
+              <Search className="w-4 h-4 text-gray-600" />
+            </div>
             <input 
               type="text" 
-              placeholder="Search Games or Services..." 
-              className="w-full bg-[#181818] text-white py-4 px-7 rounded-full text-xs font-bold outline-none border border-gray-800 focus:border-yellow-500 transition-all placeholder:text-gray-600" 
+              placeholder="Search Games..." 
+              className="w-full bg-[#181818] text-white py-4 pl-12 pr-7 rounded-full text-xs font-bold outline-none border border-gray-800 focus:border-yellow-500 transition-all placeholder:text-gray-600" 
             />
           </div>
         </div>
 
-        {/* Dynamic Items Grid Section */}
+        {/* Items Grid */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6 md:gap-8">
           {filteredItems.map((item) => (
             <Link 
@@ -118,15 +129,6 @@ export default function Home() {
             </Link>
           ))}
         </div>
-
-        {/* Empty State Handler */}
-        {filteredItems.length === 0 && (
-          <div className="text-center py-28 border-2 border-dashed border-gray-900 rounded-[3rem]">
-            <p className="text-gray-700 font-black italic uppercase tracking-[0.3em] text-[10px]">
-              Coming Soon Items
-            </p>
-          </div>
-        )}
       </main>
     </div>
   );
