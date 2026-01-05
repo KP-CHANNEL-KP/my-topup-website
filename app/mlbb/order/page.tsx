@@ -28,7 +28,7 @@ function OrderContent() {
     <div className="max-w-2xl mx-auto space-y-6 pb-20">
       {/* Header Info */}
       <div className="relative h-32 rounded-3xl overflow-hidden border border-gray-800">
-        <img src="/mlbb-banner.jpg" className="w-full h-full object-cover opacity-40" />
+        <img src="/mlbb-banner.png" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black">
           <h1 className="text-xl font-black italic uppercase">Mobile Legends {currentServer.name}</h1>
           <p className="text-[10px] text-green-500 font-bold">✓ Verified Service</p>
