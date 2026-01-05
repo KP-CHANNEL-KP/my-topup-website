@@ -33,7 +33,7 @@ export default function ServerPage() {
             <Link 
               key={s.id} 
               // ဒီနေရာမှာ /mlbb ဆီကို server id ပါ တပါတည်း ပို့ပေးလိုက်ပါတယ်
-              href={`/mlbb?server=${s.id}`} 
+              href={`/mlbb/order?server=${s.id}`} 
               className="group relative aspect-[3/4] rounded-3xl overflow-hidden border border-gray-800 hover:border-yellow-500 transition-all shadow-2xl"
             >
               {/* Character Background Image */}
