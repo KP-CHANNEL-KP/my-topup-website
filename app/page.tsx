@@ -2,28 +2,39 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// ၁။ Banner ပုံများ
 const banners = ["/promo1.png", "/promo2.png", "/promo3.png"];
-
-// ၂။ Category Tabs များ
 const categories = ["Game Mobile", "Mlbb Mobile", "Pc Game", "Voucher", "Social", "Via login"];
 
-// ၃။ ဂိမ်းစာရင်းများ
 const allItems = [
+  // MLBB & Games
   { id: 'mlbb', name: 'MOBILE LEGENDS', icon: '/mlbb-logo.png', category: 'Mlbb Mobile' },
   { id: 'pubg', name: 'PUBG MOBILE', icon: '/pubg-logo.png', category: 'Game Mobile' },
   { id: 'ff', name: 'FREE FIRE', icon: '/ff-logo.png', category: 'Game Mobile' },
   { id: 'hok', name: 'HONOR OF KINGS', icon: '/hok-logo.png', category: 'Game Mobile' },
   { id: 'genshin', name: 'GENSHIN IMPACT', icon: '/genshin-logo.png', category: 'Game Mobile' },
-  { id: 'valorant', name: 'VALORANT', icon: '/Pc Game', category: 'Pc Game' },
-  { id: 'netflix', name: 'NETFLIX', icon: '/netflix-logo.png', category: 'Social' },
+  { id: 'valorant', name: 'VALORANT', icon: '/valorant-logo.png', category: 'Pc Game' },
+
+  // Social Section (ပုံထဲကအတိုင်း အကုန်ထည့်ပေးထားပါတယ်)
+  { id: 'telegram', name: 'Telegram Premium', icon: '/telegram.png', category: 'Social' },
+  { id: 'spotify', name: 'Spotify Premium', icon: '/spotify.png', category: 'Social' },
+  { id: 'capcut', name: 'CapCut PRO', icon: '/capcut.png', category: 'Social' },
+  { id: 'youtube', name: 'YouTube Premium', icon: '/youtube.png', category: 'Social' },
+  { id: 'alight', name: 'Alight Motion', icon: '/alight.png', category: 'Social' },
+  { id: 'roblox', name: 'ROBLOX', icon: '/roblox.png', category: 'Social' },
+  { id: 'wink', name: 'Wink', icon: '/wink.png', category: 'Social' },
+  { id: 'soundcloud', name: 'SoundCloud', icon: '/soundcloud.png', category: 'Social' },
+  { id: 'remini', name: 'Remini', icon: '/remini.png', category: 'Social' },
+  { id: 'vpn', name: 'VPN Premium', icon: '/vpn.png', category: 'Social' },
+  { id: 'ai', name: 'AI Premium', icon: '/ai.png', category: 'Social' },
+  { id: 'ps', name: 'PlayStation Gift', icon: '/ps.png', category: 'Social' },
+  { id: 'phub', name: 'Pron Hub', icon: '/phub.png', category: 'Social' },
+  { id: 'duolingo', name: 'Duolingo Premium', icon: '/duolingo.png', category: 'Social' },
 ];
 
 export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [activeTab, setActiveTab] = useState("Mlbb Mobile");
 
-  // Auto Slider လုပ်ဆောင်ချက်
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentBanner((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
@@ -31,55 +42,35 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // ရွေးထားတဲ့ Category အလိုက် Filter လုပ်ခြင်း
-  const filteredItems = allItems.filter(item => 
-    activeTab === "Game Mobile" ? (item.category === "Game Mobile" || item.category === "Mlbb Mobile") : item.category === activeTab
-  );
+  const filteredItems = allItems.filter(item => item.category === activeTab);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-yellow-500/30">
-      
-      {/* Header Section */}
-      <nav className="p-5 border-b border-gray-900 bg-black/50 backdrop-blur-xl sticky top-0 z-50 shadow-2xl">
+    <div className="min-h-screen bg-[#0a0a0a] text-white font-sans">
+      {/* Header */}
+      <nav className="p-5 border-b border-gray-900 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-black text-yellow-500 italic tracking-tighter">KP TOPUP</h1>
-          <div className="flex items-center gap-4">
-            <button className="hidden md:block text-xs font-bold text-gray-400 hover:text-white transition">Register</button>
-            <button className="bg-white text-black px-6 py-2 rounded-full text-xs font-black uppercase tracking-tight hover:bg-yellow-500 transition-colors">Login</button>
-          </div>
+          <h1 className="text-2xl font-black text-yellow-500 italic">KP TOPUP</h1>
+          <button className="bg-white text-black px-6 py-2 rounded-full text-xs font-black uppercase">Login</button>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto p-4 md:p-8">
-        
-        {/* Promotion Slider */}
-        <div className="relative w-full h-44 md:h-[400px] overflow-hidden rounded-[2.5rem] border border-gray-800 bg-gray-900 mb-10 shadow-2xl">
+        {/* Banner */}
+        <div className="relative w-full h-44 md:h-[350px] overflow-hidden rounded-[2rem] border border-gray-800 mb-10">
           {banners.map((img, index) => (
-            <img 
-              key={index} 
-              src={img} 
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentBanner ? 'opacity-100' : 'opacity-0'}`} 
-              onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/1200x400?text=Promotion+Banner" }}
-            />
+            <img key={index} src={img} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentBanner ? 'opacity-100' : 'opacity-0'}`} />
           ))}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-            {banners.map((_, i) => (
-              <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentBanner ? 'w-8 bg-yellow-500' : 'w-2 bg-white/20'}`} />
-            ))}
-          </div>
         </div>
 
-        {/* Categories & Search Bar (သင်ပို့ထားတဲ့ပုံစံအတိုင်း) */}
-        <div className="flex flex-col lg:flex-row gap-6 justify-between items-center mb-12 bg-[#111] p-4 rounded-[2rem] border border-gray-800">
-          <div className="flex gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 no-scrollbar">
+        {/* Tab & Search (ပုံထဲကအတိုင်း) */}
+        <div className="flex flex-col lg:flex-row gap-6 justify-between items-center mb-10 bg-[#111] p-4 rounded-3xl border border-gray-800">
+          <div className="flex gap-2 overflow-x-auto w-full no-scrollbar pb-2">
             {categories.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 rounded-full text-[11px] font-black whitespace-nowrap transition-all border ${
-                  activeTab === tab 
-                  ? 'bg-[#4ade80] text-black border-[#4ade80] shadow-[0_0_20px_rgba(74,222,128,0.2)]' 
-                  : 'bg-black border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-5 py-2.5 rounded-full text-[11px] font-black whitespace-nowrap border transition-all ${
+                  activeTab === tab ? 'bg-[#4ade80] text-black border-[#4ade80]' : 'bg-transparent border-gray-700 text-gray-400'
                 }`}
               >
                 {tab}
@@ -88,54 +79,40 @@ export default function Home() {
           </div>
 
           <div className="relative w-full lg:w-96">
-            <input 
-              type="text" 
-              placeholder="Search Game, Voucher, etc..." 
-              className="w-full bg-white text-black py-3.5 px-6 rounded-full text-xs font-bold outline-none placeholder:text-gray-400" 
-            />
-            <span className="absolute right-5 top-3.5 text-gray-400 font-bold">🔍</span>
+            <input type="text" placeholder="Search Game, Voucher, etc" className="w-full bg-white text-black py-3 px-6 rounded-full text-xs outline-none" />
+            <span className="absolute right-5 top-3 text-gray-400">🔍</span>
           </div>
         </div>
 
-        {/* Game Grid Section */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-black uppercase italic tracking-tighter">{activeTab}</h2>
-            <div className="h-[2px] w-12 bg-yellow-500 mt-1"></div>
-          </div>
-
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-5 md:gap-8">
-            {filteredItems.map((item) => (
-              <Link 
-                href={item.id === 'mlbb' ? '/mlbb/server' : '#'} 
-                key={item.id} 
-                className="group flex flex-col items-center"
-              >
-                <div className="w-full aspect-square bg-[#161b22] rounded-[2.5rem] border border-gray-800 p-4 group-hover:border-yellow-500 group-hover:bg-[#1c2128] transition-all duration-300 overflow-hidden shadow-xl relative">
-                  <img 
-                    src={item.icon} 
-                    alt={item.name} 
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 relative z-10" 
-                    onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/200?text=" + item.name }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                <p className="mt-4 text-[10px] md:text-[11px] font-black text-gray-500 group-hover:text-yellow-500 text-center uppercase tracking-tighter transition-colors">
-                  {item.name}
-                </p>
-              </Link>
-            ))}
-          </div>
+        {/* Dynamic Title */}
+        <div className="flex items-center gap-2 mb-8">
+          <h2 className="text-lg font-black uppercase italic tracking-tighter">{activeTab}</h2>
+          <div className="h-4 w-1 bg-yellow-500 skew-x-[20deg]"></div>
+          <div className="h-4 w-1 bg-yellow-500 skew-x-[20deg]"></div>
         </div>
 
+        {/* Items Grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 md:gap-6">
+          {filteredItems.map((item) => (
+            <Link 
+              href={item.id === 'mlbb' ? '/mlbb/server' : '#'} 
+              key={item.id} 
+              className="group flex flex-col items-center"
+            >
+              <div className="w-full aspect-square bg-[#161b22] rounded-[1.5rem] md:rounded-[2rem] border border-gray-800 p-2 group-hover:border-yellow-500 transition-all overflow-hidden relative">
+                <img 
+                  src={item.icon} 
+                  className="w-full h-full object-cover rounded-[1.2rem] md:rounded-[1.8rem] group-hover:scale-105 transition-transform duration-500" 
+                  onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/200?text=" + item.name }}
+                />
+              </div>
+              <p className="mt-3 text-[10px] font-bold text-gray-400 group-hover:text-white text-center uppercase truncate w-full">
+                {item.name}
+              </p>
+            </Link>
+          ))}
+        </div>
       </main>
-
-      {/* Footer Info */}
-      <footer className="mt-20 border-t border-gray-900 p-10 bg-black">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-600 text-[10px] font-bold tracking-[0.3em] uppercase">© 2026 KP TOPUP - FAST & SECURE</p>
-        </div>
-      </footer>
     </div>
   );
 }
